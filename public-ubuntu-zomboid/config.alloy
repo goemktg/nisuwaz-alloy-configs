@@ -16,6 +16,10 @@ loki.process "zomboid_logs" {
       service = "zomboid",
     }
   }
+  
+  stage.regex {
+    expression = "^(?P<detected_level>WARN)\\s*:\\s*(?P<component>[^,]+)\\s*,\\s*(?P<timestamp>\\d+)>"
+  }
 
   forward_to = [loki.write.grafana_loki.receiver]
 }
